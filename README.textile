@@ -1,0 +1,15 @@
+h1. B20 Personalised PDFs for vinyl insert
+
+p. Replace username/password fields in a PDF form for personalised inserts.
+
+h2. Tools
+
+* "https://github.com/jkraemer/pdf-forms":https://github.com/jkraemer/pdf-forms
+
+h2. Run
+
+# Edit b20-src.odt in Open Office to suit
+# Export from OO as PDF and replace b20.pdf
+# Edit go.rb to fix up your paths.
+# Run @$ruby go.rb@
+# Spits out files to ./output/*
