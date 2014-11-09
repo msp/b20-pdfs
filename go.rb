@@ -1,4 +1,5 @@
 require 'pdf_forms'
+require 'yaml'
 # README : https://github.com/jkraemer/pdf-forms
 
 # adjust the pdftk path to suit your pdftk installation
@@ -14,10 +15,13 @@ pdftk = PdfForms.new('/usr/local/bin/pdftk')
 fields = pdftk.get_field_names '/data/development/pdf/b20.pdf'
 puts "replacing these pdf fields: #{fields}"
 
-# take form.pdf, set the 'foo' field to 'bar' and save the document to myform.pdf
+users = YAML.load_file("users.yml")
 
-["rita", "sue", "bob", "too" ].each do |name|
-    pdftk.fill_form '/data/development/pdf/b20.pdf', "output/b20-#{name}.pdf", :username => name, :password => 's3cr3t'
+users.each do |user|
+  username = user[1]['username']
+  password = user[1]['password']
+  puts "#{username} -> #{password}"
+  pdftk.fill_form '/data/development/pdf/b20.pdf', "output/b20-#{user[0]}.pdf", :username => username, :password => password
 end
 
 # optionally, add the :flatten option to prevent editing of a filled out form
